@@ -11,7 +11,7 @@ alumno_prode(Tsai,Lin,Alvin,Y160267).
 % nat/1(num_peano) true si N es un número de peano
 nat(0).
 nat(s(N)) :-
-    nat(s(N)).
+    nat(N).
 
 %grt_eq/2(num_peano1,num_peano2) true si N>=M
 grt_eq(_, 0).				% 0 es el número de peano más pequeño
@@ -61,3 +61,23 @@ memberlistas([], _).
 memberlistas([X|Xs], Y) :-
     my_member(X, Y),
     memberlistas(Xs, Y).
+
+%basic_building/1(lista)
+%true si es un edificio basico con al menos un nivel y una vivienda por nivel
+basic_building([A]) :-
+    basic_building2(A).
+
+basic_building([A|X]) :-
+    basic_building2(A),
+    basic_building(X).
+
+%basic_building2/1(lista)
+% true si es un nivel del edificio con al menos una vivienda
+basic_building2([A]) :-
+	nat(A).
+
+basic_building2([A|X]) :-
+    nat(A),
+    basic_building2(X).
+    
+    
