@@ -62,26 +62,31 @@ memberlistas([X|Xs], Y) :-
     my_member(X, Y),
     memberlistas(Xs, Y).
 
-%basic_building/1(lista)
+%basic_building/1 (lista)
 %true si es un edificio basico con al menos un nivel y una vivienda por nivel
-basic_building([A]) :-
-    basic_building2(A).
+basic_building([]).       
 basic_building([A|X]) :-
-    basic_building2(A),
+    checkLevel(A),
     basic_building(X).
 
-%basic_building2/1(lista)
+%checkLevel/1 (lista)
+%predicado auxiliar que comprueba que cada elemento de la lista (nivel) es un numero de peano
 % true si es un nivel del edificio con al menos una vivienda
-basic_building2([A]) :-
-	nat(A).
-basic_building2([A|X]) :-
+checkLevel([]).
+checkLevel([A|X]) :-
     nat(A),
-    basic_building2(X).
+    checkLevel(X).
 
+%level/3 (Lista1, nº de peano, Lista2)
+%true si C es el nivel N-ésimo del edificio X (la lista con todas las viviendasde ese nivel)
 level(X,N,C):-
     basic_building(X),
     getLevel(X,N,C).
 
-getLevel([X|_],0,X).
+%getLevel/3 (Lista1, nº de peano, Lista2)
+%predicado auxiliar
+% true si C es el nivel N-ésimo del edificio X (la lista con todas las viviendasde ese nivel)
+getLevel([X|_],s(0),X).
 getLevel([_|Ys],s(N),C) :-
     getLevel(Ys,N, C).
+
