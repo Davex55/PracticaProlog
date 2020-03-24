@@ -66,7 +66,6 @@ memberlistas([X|Xs], Y) :-
 %true si es un edificio basico con al menos un nivel y una vivienda por nivel
 basic_building([A]) :-
     basic_building2(A).
-
 basic_building([A|X]) :-
     basic_building2(A),
     basic_building(X).
@@ -75,9 +74,14 @@ basic_building([A|X]) :-
 % true si es un nivel del edificio con al menos una vivienda
 basic_building2([A]) :-
 	nat(A).
-
 basic_building2([A|X]) :-
     nat(A),
     basic_building2(X).
-    
-    
+
+level(X,N,C):-
+    basic_building(X),
+    getLevel(X,N,C).
+
+getLevel([X|_],0,X).
+getLevel([_|Ys],s(N),C) :-
+    getLevel(Ys,N, C).
