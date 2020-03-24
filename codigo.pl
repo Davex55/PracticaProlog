@@ -1,7 +1,7 @@
 %Nuestros datos
-alumno_prode(Alvarez,Benavente,Alejandro,Y160319). %PORTAVOZ
-alumno_prode(Aparicio,Doncel,Alberto,Y160364).   
-alumno_prode(Tsai,Lin,Alvin,Y160267).
+%alumno_prode(Alvarez,Benavente,Alejandro,Y160319). %PORTAVOZ
+%alumno_prode(Aparicio,Doncel,Alberto,Y160364).   
+%alumno_prode(Tsai,Lin,Alvin,Y160267).
 %-------------------------------------------
 
 % practica1.pl
@@ -89,4 +89,24 @@ level(X,N,C):-
 getLevel([X|_],s(0),X).
 getLevel([_|Ys],s(N),C) :-
     getLevel(Ys,N, C).
+
+%column/3 (Edificio, num vivienda (peano), Lista Resultante)
+%C es la lista formada por las viviendas N-ésimas de todos los niveles del edificio X.
+column([],_,_).
+
+column([X|Y],N,C):-
+    column(Y,N,C),
+    append_vivienda(X,N,C).
+
+
+append_vivienda([_|X],s(N),C):-
+    append_vivienda(X,N,C).
+
+append_vivienda([X|_],s(0),[_|X]).
+
+    
+
+
+
+
 
