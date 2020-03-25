@@ -120,8 +120,28 @@ append_vivienda([X|_],s(0),[X]).
 append_vivienda([_|X],s(N),C):-
     append_vivienda(X,N,C).
 
+%%%
+columns([],_).
+columns(X,C):-
+    cont_lev(X,0,N),
+    rec_col(X,s(0),C,N).
 
- total_people([],0).
+cont_lev([],S,S).
+cont_lev([_|Y],S,N):-
+    cont_lev(Y,s(S),N).
+
+rec_col(_,_,_,0).
+rec_col(X,s(0),L,s(T)):-
+    column(X,N,C),
+    rec_col(X,s(N),C,T),
+    my_append(C,C,L).
+rec_col(X,N,L,s(T)):-
+    column(X,N,C),
+    rec_col(X, s(N), L|C,T).
+
+
+%%%
+total_people([],0).
 total_people([X|Ys],F) :-
     total_people2(X, Z),
     sum(Z,T,F),
