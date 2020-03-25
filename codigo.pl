@@ -77,6 +77,22 @@ checkLevel([A|X]) :-
     nat(A),
     checkLevel(X).
 
+%building/1 (lista edificio)
+%predicado que devuelve true si todos los pisos del edificio tienen el mismo numero de viviendas
+building([]).
+building([X,Y]):-
+    comp_n_viv(X,Y).
+building([X,Y|Z]):-
+    building(Y|Z),
+    comp_n_viv(X,Y).
+
+%comp_n_viv/2 (lista nivel1, lista nivel2)
+%predicado auxiliar que devuelve true si los dos niveles tienen el mismo numero de viviendas
+comp_n_viv([],[]).
+comp_n_viv([_|X],[_|Y]):-
+    comp_n_viv(X,Y).
+
+
 %level/3 (Lista1, nº de peano, Lista2)
 %true si C es el nivel N-ésimo del edificio X (la lista con todas las viviendasde ese nivel)
 level(X,N,C):-
@@ -98,6 +114,8 @@ column([X|Y],N,C):-
     append_vivienda(X,N,Z),
     my_append(Z,T,C).
 
+%append_vivienda/3 (Nivel(lista), num vivienda(peano), vivienda resultante)
+%devuelve true si se consigue extraer la vivienda n del nivel correspondiente
 append_vivienda([X|_],s(0),[X]).
 append_vivienda([_|X],s(N),C):-
     append_vivienda(X,N,C).
