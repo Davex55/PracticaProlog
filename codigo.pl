@@ -153,3 +153,47 @@ total_people2([],0).
 total_people2([X|Ys], F) :-
     sum(X, T, F),
     total_people2(Ys, T).   
+
+total_building([],0).
+total_building([X|Ys],F) :-
+    total_building2(X, Z),
+    sum(Z,T,F),
+    total_building(Ys,T).
+
+
+total_building2([],0).
+total_building2([_|Ys], s(F)) :-
+    total_building2(Ys, F).   
+
+
+average(X,T) :-
+    total_people(X, Y),
+    total_building(X, Z),
+    div(Y, Z, T).
+
+%div(_N, zero, _Q) :- !.			% division with 0 not defined
+div(0, s(_D), 0).				% 0 / a = 0
+div(A, B, s(C)) :- 				% If d = a - b and d / b = c then a / b = c + 1
+	diff(A, B, D),				% => (a - b)/b = c => a/b - b/b = c 
+    comp(D, B, E),
+	div(E, B, C).				% => a/b - 1 = c => a/b = c + 1
+
+
+diff(A, 0, A).				
+diff(A, s(B), C) :- 				
+	diff(A, B, s(C)).				
+
+
+grt_less(_, 0 ,0).				% 0 es el número de peano más pequeño
+grt_less(0, _, s(0)).
+grt_less(s(N), s(M),Z):-				% a > b => (a + 1) > (b + 1)
+	grt_less(N, M,Z).
+
+
+comp(A,B,C) :-
+    grt_less(A,B,D),
+    comp2(A,D,C).
+
+comp2(_,  s(0), 0).
+comp2(A,  0, A).
+    
