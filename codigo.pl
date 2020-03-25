@@ -89,8 +89,10 @@ building([X,Y|Z]):-
 %comp_n_viv/2 (lista nivel1, lista nivel2)
 %predicado auxiliar que devuelve true si los dos niveles tienen el mismo numero de viviendas
 comp_n_viv([],[]).
-comp_n_viv([_|X],[_|Y]):-
-    comp_n_viv(X,Y).
+comp_n_viv([X|Ys],[Z|Ts]):-
+    nat(X),
+    nat(Z),
+    comp_n_viv(Ys,Ts).
 
 
 %level/3 (Lista1, nº de peano, Lista2)
