@@ -122,22 +122,27 @@ append_vivienda([X|_],s(0),[X]).
 append_vivienda([_|X],s(N),C):-
     append_vivienda(X,N,C).
 
-%%%
+%columns/3 (Edificio(lista), Columnas(lista))
+%devuelve true si C es la lista de columnas de X
 columns([],_).
 columns([X|Y],C):-
     cont_viv(X,0,N),
     rec_col([X|Y],s(0),C,N).
 
+%cont_viv/3 (Nivel(lista), numero viv(numero peano), numero de viviendas(numero de peano))
+%devuelve true si N es el numero de viviendas de Nivel
 cont_viv([],S,S).
 cont_viv([_|Y],S,N):-
     cont_viv(Y,s(S),N).
 
+%rec_col/4(Edificio(lista), numero viv(numero de peano),
+%lista columnas(lista), n viviendas por recorrer(numero peano))
+%devuelve true si L es la lista con las columnas de X, siendo T numero de viviendas por nivel de X
 rec_col(_,_,_,0).
 rec_col(X,N,L,s(T)):-
     rec_col(X, s(N),Y,T),
     column(X,N,C),
     my_append([C|Y],[],L).
-
 rec_col(X,N,L,s(0)):-
     rec_col(X, s(N),_,0),
     column(X,N,C),
