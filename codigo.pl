@@ -148,16 +148,6 @@ rec_col(X,N,L,s(0)):-
     column(X,N,C),
     my_append(C,[],L).
 
-%    my_append(L,[],X),
-%    my_append(C,X,L).
-
-add_list(X,Y,[X,Y]).
-add_list(X,Y,Z):-
-    my_append(Y,[],Z),
-
-    add_list(X,Y,X|Y).
-
-
 
 %%%a
 total_people([],0).
