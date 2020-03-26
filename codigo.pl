@@ -33,12 +33,44 @@ lst(0, N):- N \= 0.  			% 0 es el número de peano más pequeño
 lst(s(N), s(M)):-				% a < b => (a + 1) < (b + 1)
 	lst(N, M), N \= M.
 
+%grt_lst(num_peano1, num_peano2, result)
+% if A=B  =>  C=0
+grt_lst(_, 0 ,0).				% 0 es el número de peano más pequeño
+grt_lst(0, _, s(0)).          %  si a > b => c (0)  |  b > a => c (s(0))
+grt_lst(s(N), s(M),Z):-				% a > b => (a + 1) > (b + 1)
+	grt_lst(N, M,Z).
+
 %sum/3(num_peano1,num_peano2,num_peano3)
-%true si todos son números de peano
 %suma A y B y lo pone en C
 sum(0, A, A).
 sum(s(A), B, s(C)) :-
     sum(A, B, C).
+
+%diff/3(num_peano1,num_peano2,num_peano3) 
+% resta A - B y lo pone en C
+diff(A, 0, A).		         		% a - 0 = a
+diff(A, s(B), C) :- 			   % If a - b = (c + 1) then a - (b + 1) = c
+	diff(A, B, s(C)).	
+
+%div/3(num_peano1,num_peano2,num_peano3)
+% divide A entre B y lo pone en C
+% el resultado es por truncamiento 
+div(0, s(_D), 0).				% 0 / a = 0
+div(A, B, s(C)) :- 				% If d = a - b and d / b = c then a / b = c + 1
+	diff(A, B, D),				% => (a - b)/b = c => a/b - b/b = c 
+    cmp(D, B, E),             % If B > D then E => 0 |   If D > B then E => D (truncamiento)
+	div(E, B, C).				% => a/b - 1 = c => a/b = c + 1
+
+%cmp/3 (num_peano1,num_peano2,num_peano3)
+% cmp compara si A es mayor que B 
+% si A > B then C => A, else C => 0
+cmp(A,B,C) :-
+    grt_lst(A, B, Z),                 %  si a > b => d (0)  |  b > a => d (s(0))
+    cmp2(A, Z, C).
+
+%cmp2(num_peano1,num_peano2,num_peano3)
+cmp2(_, s(0), 0).           %  If  num_peano2 => s(0) thuen num_peano3 => 0
+cmp2(A, 0, A).              %  If  num_peano2 => 0 thuen num_peano3 => num_peano1
 
 %my_member/2(elemento,lista)
 %implementacion personal de la función built-in member de prolog
@@ -148,59 +180,38 @@ rec_col(X,N,L,s(0)):-
     column(X,N,C),
     my_append(C,[],L).
 
-
-%%%a
+%total_people/2 (list1, num_peano)
+% num_peano es el número total de personas que viven en el edificio X (list1)
 total_people([],0).
 total_people([X|Ys],F) :-
-    total_people2(X, Z),
+    countPeople(X, Z),
     sum(Z,T,F),
     total_people(Ys,T).
 
-total_people2([],0).
-total_people2([X|Ys], F) :-
+% countPeople/2 (list1, num_peano)
+% num_peano es el número total de personas que viven en el nivel X (list1)
+countPeople([],0).
+countPeople([X|Ys], F) :-
     sum(X, T, F),
-    total_people2(Ys, T).   
+    countPeople(Ys, T).   
 
+% total_building/2 (list1, num_peano)
+% num_peano es el número total de viviendas en el edificio X (list1)
 total_building([],0).
 total_building([X|Ys],F) :-
-    total_building2(X, Z),
+    countBuilding(X, Z),
     sum(Z,T,F),
     total_building(Ys,T).
 
+% countBuilding/2 (list1, num_peano)
+% num_peano es el numero total de viviendas en el nivel X (list1)
+countBuilding([],0).
+countBuilding([_|Ys], s(F)) :-
+    countBuilding(Ys, F).   
 
-total_building2([],0).
-total_building2([_|Ys], s(F)) :-
-    total_building2(Ys, F).   
-%%
-
+% average/2 (list1 , num_peano)
+% num_peano es el numero medio de personas en cada vivienda
 average(X,T) :-
     total_people(X, Y),
     total_building(X, Z),
     div(Y, Z, T).
-
-%div(_N, zero, _Q) :- !.			% division with 0 not defined
-div(0, s(_D), 0).				% 0 / a = 0
-div(A, B, s(C)) :- 				% If d = a - b and d / b = c then a / b = c + 1
-	diff(A, B, D),				% => (a - b)/b = c => a/b - b/b = c 
-    comp(D, B, E),
-	div(E, B, C).				% => a/b - 1 = c => a/b = c + 1
-
-
-diff(A, 0, A).				
-diff(A, s(B), C) :- 				
-	diff(A, B, s(C)).				
-
-
-grt_less(_, 0 ,0).				% 0 es el número de peano más pequeño
-grt_less(0, _, s(0)).
-grt_less(s(N), s(M),Z):-				% a > b => (a + 1) > (b + 1)
-	grt_less(N, M,Z).
-
-
-comp(A,B,C) :-
-    grt_less(A,B,D),
-    comp2(A,D,C).
-
-comp2(_,  s(0), 0).
-comp2(A,  0, A).
-    
