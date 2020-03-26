@@ -124,13 +124,13 @@ append_vivienda([_|X],s(N),C):-
 
 %%%
 columns([],_).
-columns(X,C):-
-    cont_lev(X,0,N),
-    rec_col(X,s(0),C,N).
+columns([X|Y],C):-
+    cont_viv(X,0,N),
+    rec_col([X|Y],s(0),C,N).
 
-cont_lev([],S,S).
-cont_lev([_|Y],S,N):-
-    cont_lev(Y,s(S),N).
+cont_viv([],S,S).
+cont_viv([_|Y],S,N):-
+    cont_viv(Y,s(S),N).
 
 rec_col(_,_,_,0).
 rec_col(X,N,L,s(T)):-
