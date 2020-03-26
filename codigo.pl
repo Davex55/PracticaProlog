@@ -133,16 +133,28 @@ cont_lev([_|Y],S,N):-
     cont_lev(Y,s(S),N).
 
 rec_col(_,_,_,0).
-rec_col(X,s(0),L,s(T)):-
-    column(X,N,C),
-    rec_col(X,s(N),C,T),
-    my_append(C,C,L).
 rec_col(X,N,L,s(T)):-
+    rec_col(X, s(N),Y,T),
     column(X,N,C),
-    rec_col(X, s(N), L|C,T).
+    my_append([C|Y],[],L).
+
+rec_col(X,N,L,s(0)):-
+    rec_col(X, s(N),_,0),
+    column(X,N,C),
+    my_append(C,[],L).
+
+%    my_append(L,[],X),
+%    my_append(C,X,L).
+
+add_list(X,Y,[X,Y]).
+add_list(X,Y,Z):-
+    my_append(Y,[],Z),
+
+    add_list(X,Y,X|Y).
 
 
-%%%
+
+%%%a
 total_people([],0).
 total_people([X|Ys],F) :-
     total_people2(X, Z),
@@ -164,7 +176,7 @@ total_building([X|Ys],F) :-
 total_building2([],0).
 total_building2([_|Ys], s(F)) :-
     total_building2(Ys, F).   
-
+%%
 
 average(X,T) :-
     total_people(X, Y),
