@@ -79,12 +79,11 @@ checkLevel([A|X]) :-
 
 %building/1 (lista edificio)
 %predicado que devuelve true si todos los pisos del edificio tienen el mismo numero de viviendas
-building([]).
 building([X]):-
     basic_building([X]).
 building([X,Y]):-
     comp_n_viv(X,Y),
-    building([]).
+    building([Y]).
 building([X|[Y|Z]]):-
     building([Y|Z]),
     comp_n_viv(X,Y).
@@ -127,7 +126,6 @@ append_vivienda([_|X],s(N),C):-
 
 %columns/3 (Edificio(lista), Columnas(lista))
 %devuelve true si C es la lista de columnas de X
-columns([],_).
 columns([X|Y],C):-
     building([X|Y]),
     cont_viv(X,0,N),
