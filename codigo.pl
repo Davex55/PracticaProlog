@@ -97,7 +97,6 @@ comp_n_viv([X|Ys],[Z|Ts]):-
     nat(Z),
     comp_n_viv(Ys,Ts).
 
-
 %level/3 (Lista1, nº de peano, Lista2)
 %true si C es el nivel N-ésimo del edificio X (la lista con todas las viviendasde ese nivel)
 level(X,N,C):-
@@ -154,12 +153,18 @@ rec_col(X,N,L,s(0)):-
     my_append(C,[],L).
 
 %total_people/2 (list1, num_peano)
+% true si X(lista1) es un edificio y si num_peano es el número total de personas que viven en el edificio X (list1)
+total_people(X, Y) :-
+    building(X), 
+    totalPeople(X, Y).
+
+%total_people/2 (list1, num_peano)
 % num_peano es el número total de personas que viven en el edificio X (list1)
-total_people([],0).
-total_people([X|Ys],F) :-
+totalPeople([],0).
+totalPeople([X|Ys],F) :-
     countPeople(X, Z),
     sum(Z,T,F),
-    total_people(Ys,T).
+    totalPeople(Ys,T).
 
 % countPeople/2 (list1, num_peano)
 % num_peano es el número total de personas que viven en el nivel X (list1)
@@ -170,6 +175,7 @@ countPeople([X|Ys], F) :-
 
 % total_building/2 (list1, num_peano)
 % num_peano es el número total de viviendas en el edificio X (list1)
+% regla auxiliar para average/2
 total_building([],0).
 total_building([X|Ys],F) :-
     countBuilding(X, Z),
@@ -185,6 +191,6 @@ countBuilding([_|Ys], s(F)) :-
 % average/2 (list1 , num_peano)
 % num_peano es el numero medio de personas en cada vivienda
 average(X,T) :-
-    total_people(X, Y),
-    total_building(X, Z),
+    total_people(X, Y),         % total_people comprueba que X es un edificio con building (no hay necesidad de comprobarlo otra vez)
+    total_building(X, Z),        
     div(Y, Z, T).
