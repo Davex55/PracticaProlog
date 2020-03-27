@@ -111,7 +111,10 @@ getLevel([_|Ys],s(N),C) :-
 
 %column/3 (Edificio, num vivienda (peano), Lista Resultante)
 %C es la lista formada por las viviendas N-ésimas de todos los niveles del edificio X.
-column([],_,[]).
+column([X],N,C):-
+    building([X]),
+    append_vivienda(X,N,Z),
+    my_append(Z,[],C).
 column([X|Y],N,C):-
     building([X|Y]),
     column(Y,N,T),
