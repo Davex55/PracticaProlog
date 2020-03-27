@@ -62,7 +62,8 @@ my_append([H|T], L2, [H|L3]) :-
 
 %basic_building/1 (lista)
 %true si es un edificio basico con al menos un nivel y una vivienda por nivel
-basic_building([]).       
+basic_building([A]) :-
+    checkLevel(A).       
 basic_building([A|X]) :-
     checkLevel(A),
     basic_building(X).
@@ -70,7 +71,8 @@ basic_building([A|X]) :-
 %checkLevel/1 (lista)
 %predicado auxiliar que comprueba que cada elemento de la lista (nivel) es un numero de peano
 % true si es un nivel del edificio con al menos una vivienda
-checkLevel([]).
+checkLevel([A]) :-
+    nat(A).
 checkLevel([A|X]) :-
     nat(A),
     checkLevel(X).
@@ -99,7 +101,7 @@ comp_n_viv([X|Ys],[Z|Ts]):-
 %level/3 (Lista1, nº de peano, Lista2)
 %true si C es el nivel N-ésimo del edificio X (la lista con todas las viviendasde ese nivel)
 level(X,N,C):-
-    basic_building(X),
+    building(X),
     getLevel(X,N,C).
 
 %getLevel/3 (Lista1, nº de peano, Lista2)
