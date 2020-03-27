@@ -1,7 +1,7 @@
 %Nuestros datos
-%alumno_prode(Alvarez,Benavente,Alejandro,Y160319). %PORTAVOZ
-%alumno_prode(Aparicio,Doncel,Alberto,Y160364).   
-%alumno_prode(Tsai,Lin,Alvin,Y160267).
+alumno_prode('Benavente','Alvarez','Alejandro',160319). %PORTAVOZ
+alumno_prode('Doncel','Aparicio','Alberto',160364).   
+alumno_prode('Lin','Tsai','Alvin',160267).
 %-------------------------------------------
 
 % practica1.pl
