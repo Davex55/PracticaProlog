@@ -25,6 +25,8 @@ level([ [ s(0), s(s(s(0))) ], [ 0, s(s(0)) ] ], s(0), [ s(0), s(s(s(0))) ]).
       yes
 level([[0, 0], [0, 0], [s(0), s(0)]], s(s(s(0))), [s(0), s(0)]).
       yes
+level([[0]], s(0), [0]).
+      yes
 level([ [ s(0), s(s(s(0))) ], [ 0, s(s(0)) ] ], s(0), [ 0, s(s(0)) ]).
       no
 level([[],[]], s(0), []).
@@ -42,4 +44,33 @@ level([ [ s(0), s(s(s(0))) ], [ 0, s(s(0)) ] ], s(0), a).
 
 % total_people()
 
+total_people([ [ s(0), s(s(s(0))) ], [ 0, s(s(0)) ] ], s(s(s(s(s(s(0))))))).
+      yes 
+total_people([[0, 0], [0, 0], [s(0), s(0)]], s(s(0))). 
+      yes 
+total_people([[0]], 0) 
+      yes 
+total_people([[],[]], 0).
+      no
+total_people([ [ s(0), s(s(s(0))) ], [ 0, s(s(0)) ] ], s(s(s(s(0)))) )
+      no
+total_people([ [ s(0), s(s(s(0))) ], [ 0, s(s(0)) ] ], a).
+      no
+
 % average()
+
+average([ [ s(0), s(s(s(0))) ], [ 0, s(s(0)) ] ], s(0)).
+      yes 
+average([[0, 0], [0, 0], [s(0), s(0)]], 0).
+      yes 
+average([[0]], 0).
+      yes
+average([ [ s(0), s(s(s(0))) ], [ 0, s(s(0)) ], [s(s(s(0))), s(s(s(0)))] ], s(s(0))).
+      yes
+average([ [ s(0), s(s(s(0))) ], [ 0, s(s(0)) ] ], s(s(0))).
+      no
+average([[],[]], 0).
+      no
+average([ [ s(0), s(s(s(0))) ], [ 0, s(s(0)) ] ], a).
+      no
+
