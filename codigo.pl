@@ -34,11 +34,14 @@ diff(A, 0, A).		         		% a - 0 = a
 diff(A, s(B), C) :- 			   % If a - b = (c + 1) then a - (b + 1) = c
 	diff(A, B, s(C)).	
 
+%div/3(num_peano1,num_peano2,num_peano3)
+% divide A entre B y lo pone en C
+% el resultado es por truncamiento 
 div(A, B, C) :-
     grt_lst(A, B, Z),
     div2(A, B, C, Z).
 
-%div/4(num_peano1,num_peano2,num_peano3)
+%div2/4(num_peano1,num_peano2,num_peano3, num_peano4)
 % divide A entre B y lo pone en C
 % el resultado es por truncamiento 
 div2(_, _, 0, s(0)).
