@@ -34,14 +34,19 @@ diff(A, 0, A).		         		% a - 0 = a
 diff(A, s(B), C) :- 			   % If a - b = (c + 1) then a - (b + 1) = c
 	diff(A, B, s(C)).	
 
-%div/3(num_peano1,num_peano2,num_peano3)
+div(A, B, C) :-
+    grt_lst(A, B, Z),
+    div2(A, B, C, Z).
+
+%div/4(num_peano1,num_peano2,num_peano3)
 % divide A entre B y lo pone en C
 % el resultado es por truncamiento 
-div(0, s(_D), 0).				% 0 / a = 0
-div(A, B, s(C)) :- 				% If d = a - b and d / b = c then a / b = c + 1
+div2(_, _, 0, s(0)).
+div2(0, s(_D), 0, _).				% 0 / a = 0
+div2(A, B, s(C), _) :- 				% If d = a - b and d / b = c then a / b = c + 1
 	diff(A, B, D),				% => (a - b)/b = c => a/b - b/b = c 
     cmp(D, B, E),             % If B > D then E => 0 |   If D > B then E => D (truncamiento)
-	div(E, B, C).				% => a/b - 1 = c => a/b = c + 1
+	div2(E, B, C, _).				% => a/b - 1 = c => a/b = c + 1
 
 %cmp/3 (num_peano1,num_peano2,num_peano3)
 % cmp compara si A es mayor que B 

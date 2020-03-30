@@ -88,7 +88,7 @@
       no
 ?-columns([[s(0),s(s(s(0)))],[0,s(s(0))],[0]],[[s(0), 0, 0], [s(s(s(0))), s(s(0))]]).
       no
-?-columns([[0]],[0])
+?-columns([[0]],[0]).
       yes
 ?-columns([[s(0),s(s(s(0))),s(0)],[0,s(s(0)),0]],[[s(0), 0], [s(s(s(0))), s(s(0))], [s(0), 0]]).
       yes
@@ -102,11 +102,11 @@
       yes 
 ?-total_people([[0, 0], [0, 0], [s(0), s(0)]], s(s(0))). 
       yes 
-?-total_people([[0]], 0) 
+?-total_people([[0]], 0).
       yes 
 ?-total_people([[],[]], 0).
       no
-?-total_people([ [ s(0), s(s(s(0))) ], [ 0, s(s(0)) ] ], s(s(s(s(0)))) )
+?-total_people([ [ s(0), s(s(s(0))) ], [ 0, s(s(0)) ] ], s(s(s(s(0)))) ).
       no
 ?-total_people([ [ s(0), s(s(s(0))) ], [ 0, s(s(0)) ] ], a).
       no
